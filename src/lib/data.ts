@@ -40,8 +40,6 @@ export const RIVER: [number, number][] = [
 const m = (min: number) => Date.now() - min * 60000;
 
 export function seedIncidents(): Incident[] {
-  const base: Omit<Incident, "history" | "reportedAt"> & { ago: number }[] = [] as never;
-  void base;
   const mk = (i: Omit<Incident, "history" | "reportedAt"> & { ago: number }): Incident => {
     const { ago, ...rest } = i;
     const idx = STEPS.indexOf(rest.status);
