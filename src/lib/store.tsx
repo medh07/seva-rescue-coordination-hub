@@ -47,11 +47,9 @@ function useStoreImpl() {
       return { ...p, ...L.assignTeam(p.incidents, p.teams, incId, t.id) };
     }, `Nearest available team dispatched`),
     advance: (incId: string) => run((p) => ({ ...p, ...L.advanceIncident(p.incidents, p.teams, incId) }), `${incId} status updated`),
-    submitSOS: (input: { name: string; phone: string; people: number; needs: string[]; details: string; district: string; lat: number; lng: number }) => {
-      let id = "";
+    submitSOS: (input: { id: string; name: string; phone: string; people: number; needs: string[]; details: string; district: string; lat: number; lng: number }) => {
+      const id = input.id;
       run((p) => {
-        const n = Math.max(...p.incidents.map((i) => Number(i.id.slice(4))), ...p.offlineQueue.map((i) => Number(i.id.slice(4))), 0) + 1;
-        id = `SOS-${String(n).padStart(3, "0")}`;
         const inc: D.Incident = {
           id, title: `${input.people} ${input.people === 1 ? "person" : "people"} need help`, details: input.details || "Citizen SOS — no details provided.",
           people: input.people, district: input.district, grid: "—", lat: input.lat, lng: input.lng, priority: L.priorityFromSOS(input.people, input.needs),
@@ -60,8 +58,7 @@ function useStoreImpl() {
         };
         if (p.settings.offline) return { ...p, offlineQueue: [inc, ...p.offlineQueue] };
         return { ...p, incidents: [inc, ...p.incidents] };
-      });
-      return () => id;
+      }, `${id} sent`);
     },
     syncOffline: () => run((p) => ({ ...p, incidents: [...p.offlineQueue.map((i) => ({ ...i, offline: false })), ...p.incidents], offlineQueue: [] }), "Offline SOS reports synced"),
     setTaskStatus: (id: string, status: D.TaskStatus) => run((p) => ({ ...p, tasks: p.tasks.map((t) => (t.id === id ? { ...t, status } : t)) }), `Task moved to ${status}`),
@@ -86,6 +83,10 @@ const Ctx = createContext<Store | null>(null);
 export function StoreProvider({ children }: { children: ReactNode }) {
   const v = useStoreImpl();
   return <Ctx.Provider value={v}>{children}</Ctx.Provider>;
+}
+export function nextSosId(s: { incidents: D.Incident[]; offlineQueue: D.Incident[] }) {
+  const n = Math.max(0, ...s.incidents.map((i) => Number(i.id.slice(4)) || 0), ...s.offlineQueue.map((i) => Number(i.id.slice(4)) || 0)) + 1;
+  return `SOS-${String(n).padStart(3, "0")}`;
 }
 export function useStore() {
   const v = useContext(Ctx);
