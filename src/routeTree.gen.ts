@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FloodSearchRouteImport } from './routes/flood-search'
+import { Route as NgosRouteImport } from './routes/ngos'
 import { Route as RescueRouteImport } from './routes/rescue'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RiskGridRouteImport } from './routes/risk-grid'
+import { Route as SheltersRouteImport } from './routes/shelters'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,9 +27,19 @@ const FloodSearchRoute = FloodSearchRouteImport.update({
   path: '/flood-search',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NgosRoute = NgosRouteImport.update({
+  id: '/ngos',
+  path: '/ngos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RescueRoute = RescueRouteImport.update({
   id: '/rescue',
   path: '/rescue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RiskGridRoute = RiskGridRouteImport.update({
@@ -34,39 +47,78 @@ const RiskGridRoute = RiskGridRouteImport.update({
   path: '/risk-grid',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SheltersRoute = SheltersRouteImport.update({
+  id: '/shelters',
+  path: '/shelters',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/flood-search': typeof FloodSearchRoute
+  '/ngos': typeof NgosRoute
   '/rescue': typeof RescueRoute
+  '/resources': typeof ResourcesRoute
   '/risk-grid': typeof RiskGridRoute
+  '/shelters': typeof SheltersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/flood-search': typeof FloodSearchRoute
+  '/ngos': typeof NgosRoute
   '/rescue': typeof RescueRoute
+  '/resources': typeof ResourcesRoute
   '/risk-grid': typeof RiskGridRoute
+  '/shelters': typeof SheltersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/flood-search': typeof FloodSearchRoute
+  '/ngos': typeof NgosRoute
   '/rescue': typeof RescueRoute
+  '/resources': typeof ResourcesRoute
   '/risk-grid': typeof RiskGridRoute
+  '/shelters': typeof SheltersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/flood-search' | '/rescue' | '/risk-grid'
+  fullPaths:
+    | '/'
+    | '/flood-search'
+    | '/ngos'
+    | '/rescue'
+    | '/resources'
+    | '/risk-grid'
+    | '/shelters'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/flood-search' | '/rescue' | '/risk-grid'
-  id: '__root__' | '/' | '/flood-search' | '/rescue' | '/risk-grid'
+  to:
+    | '/'
+    | '/flood-search'
+    | '/ngos'
+    | '/rescue'
+    | '/resources'
+    | '/risk-grid'
+    | '/shelters'
+  id:
+    | '__root__'
+    | '/'
+    | '/flood-search'
+    | '/ngos'
+    | '/rescue'
+    | '/resources'
+    | '/risk-grid'
+    | '/shelters'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FloodSearchRoute: typeof FloodSearchRoute
+  NgosRoute: typeof NgosRoute
   RescueRoute: typeof RescueRoute
+  ResourcesRoute: typeof ResourcesRoute
   RiskGridRoute: typeof RiskGridRoute
+  SheltersRoute: typeof SheltersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,11 +137,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FloodSearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ngos': {
+      id: '/ngos'
+      path: '/ngos'
+      fullPath: '/ngos'
+      preLoaderRoute: typeof NgosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rescue': {
       id: '/rescue'
       path: '/rescue'
       fullPath: '/rescue'
       preLoaderRoute: typeof RescueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/risk-grid': {
@@ -99,14 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RiskGridRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shelters': {
+      id: '/shelters'
+      path: '/shelters'
+      fullPath: '/shelters'
+      preLoaderRoute: typeof SheltersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FloodSearchRoute: FloodSearchRoute,
+  NgosRoute: NgosRoute,
   RescueRoute: RescueRoute,
+  ResourcesRoute: ResourcesRoute,
   RiskGridRoute: RiskGridRoute,
+  SheltersRoute: SheltersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
