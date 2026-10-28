@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FloodSearchRouteImport } from './routes/flood-search'
 import { Route as RescueRouteImport } from './routes/rescue'
+import { Route as RiskGridRouteImport } from './routes/risk-grid'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FloodSearchRoute = FloodSearchRouteImport.update({
+  id: '/flood-search',
+  path: '/flood-search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RescueRoute = RescueRouteImport.update({
@@ -22,31 +29,44 @@ const RescueRoute = RescueRouteImport.update({
   path: '/rescue',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RiskGridRoute = RiskGridRouteImport.update({
+  id: '/risk-grid',
+  path: '/risk-grid',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/flood-search': typeof FloodSearchRoute
   '/rescue': typeof RescueRoute
+  '/risk-grid': typeof RiskGridRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/flood-search': typeof FloodSearchRoute
   '/rescue': typeof RescueRoute
+  '/risk-grid': typeof RiskGridRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/flood-search': typeof FloodSearchRoute
   '/rescue': typeof RescueRoute
+  '/risk-grid': typeof RiskGridRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/rescue'
+  fullPaths: '/' | '/flood-search' | '/rescue' | '/risk-grid'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/rescue'
-  id: '__root__' | '/' | '/rescue'
+  to: '/' | '/flood-search' | '/rescue' | '/risk-grid'
+  id: '__root__' | '/' | '/flood-search' | '/rescue' | '/risk-grid'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FloodSearchRoute: typeof FloodSearchRoute
   RescueRoute: typeof RescueRoute
+  RiskGridRoute: typeof RiskGridRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +78,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flood-search': {
+      id: '/flood-search'
+      path: '/flood-search'
+      fullPath: '/flood-search'
+      preLoaderRoute: typeof FloodSearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rescue': {
       id: '/rescue'
       path: '/rescue'
@@ -65,12 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RescueRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/risk-grid': {
+      id: '/risk-grid'
+      path: '/risk-grid'
+      fullPath: '/risk-grid'
+      preLoaderRoute: typeof RiskGridRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FloodSearchRoute: FloodSearchRoute,
   RescueRoute: RescueRoute,
+  RiskGridRoute: RiskGridRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
