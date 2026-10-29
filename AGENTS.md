@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Architecture
+- All demo data lives in `src/lib/data.ts` and flows through one client store (`src/lib/store.tsx`, persisted to localStorage) so every page shares the same state; no backend yet.
+- Business rules (assignment, dispatch, priority) are pure functions in `src/lib/logic.ts`, tested in `src/test/logic.test.ts`.
+- Maps use Leaflet loaded dynamically inside `src/components/GeoMap.tsx` (SSR-safe) with keyless Esri imagery.
