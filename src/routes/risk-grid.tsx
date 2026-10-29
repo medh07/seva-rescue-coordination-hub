@@ -9,7 +9,7 @@ import { meta } from "@/lib/meta";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/risk-grid")({
-  validateSearch: (s: Record<string, unknown>) => ({ cell: typeof s.cell === "string" ? s.cell : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ cell: typeof s.cell === "string" ? s.cell : undefined }) as { cell?: string },
   head: () => meta("Population & Risk Grid", "Grid-based estimates of exposed population, flood depth, damage and access to prioritise response."),
   component: RiskGrid,
 });
