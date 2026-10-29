@@ -15,7 +15,10 @@ import { Route as NgosRouteImport } from './routes/ngos'
 import { Route as RescueRouteImport } from './routes/rescue'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RiskGridRouteImport } from './routes/risk-grid'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SheltersRouteImport } from './routes/shelters'
+import { Route as SosRouteImport } from './routes/sos'
+import { Route as UpdatesRouteImport } from './routes/updates'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -47,9 +50,24 @@ const RiskGridRoute = RiskGridRouteImport.update({
   path: '/risk-grid',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SheltersRoute = SheltersRouteImport.update({
   id: '/shelters',
   path: '/shelters',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SosRoute = SosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpdatesRoute = UpdatesRouteImport.update({
+  id: '/updates',
+  path: '/updates',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -60,7 +78,10 @@ export interface FileRoutesByFullPath {
   '/rescue': typeof RescueRoute
   '/resources': typeof ResourcesRoute
   '/risk-grid': typeof RiskGridRoute
+  '/settings': typeof SettingsRoute
   '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
+  '/updates': typeof UpdatesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,7 +90,10 @@ export interface FileRoutesByTo {
   '/rescue': typeof RescueRoute
   '/resources': typeof ResourcesRoute
   '/risk-grid': typeof RiskGridRoute
+  '/settings': typeof SettingsRoute
   '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
+  '/updates': typeof UpdatesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,7 +103,10 @@ export interface FileRoutesById {
   '/rescue': typeof RescueRoute
   '/resources': typeof ResourcesRoute
   '/risk-grid': typeof RiskGridRoute
+  '/settings': typeof SettingsRoute
   '/shelters': typeof SheltersRoute
+  '/sos': typeof SosRoute
+  '/updates': typeof UpdatesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,7 +117,10 @@ export interface FileRouteTypes {
     | '/rescue'
     | '/resources'
     | '/risk-grid'
+    | '/settings'
     | '/shelters'
+    | '/sos'
+    | '/updates'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -99,7 +129,10 @@ export interface FileRouteTypes {
     | '/rescue'
     | '/resources'
     | '/risk-grid'
+    | '/settings'
     | '/shelters'
+    | '/sos'
+    | '/updates'
   id:
     | '__root__'
     | '/'
@@ -108,7 +141,10 @@ export interface FileRouteTypes {
     | '/rescue'
     | '/resources'
     | '/risk-grid'
+    | '/settings'
     | '/shelters'
+    | '/sos'
+    | '/updates'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,7 +154,10 @@ export interface RootRouteChildren {
   RescueRoute: typeof RescueRoute
   ResourcesRoute: typeof ResourcesRoute
   RiskGridRoute: typeof RiskGridRoute
+  SettingsRoute: typeof SettingsRoute
   SheltersRoute: typeof SheltersRoute
+  SosRoute: typeof SosRoute
+  UpdatesRoute: typeof UpdatesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,11 +204,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RiskGridRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shelters': {
       id: '/shelters'
       path: '/shelters'
       fullPath: '/shelters'
       preLoaderRoute: typeof SheltersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sos': {
+      id: '/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof SosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/updates': {
+      id: '/updates'
+      path: '/updates'
+      fullPath: '/updates'
+      preLoaderRoute: typeof UpdatesRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -182,7 +242,10 @@ const rootRouteChildren: RootRouteChildren = {
   RescueRoute: RescueRoute,
   ResourcesRoute: ResourcesRoute,
   RiskGridRoute: RiskGridRoute,
+  SettingsRoute: SettingsRoute,
   SheltersRoute: SheltersRoute,
+  SosRoute: SosRoute,
+  UpdatesRoute: UpdatesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
