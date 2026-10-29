@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 type Tab = "Active" | "Assigned" | "Completed";
 export const Route = createFileRoute("/rescue")({
-  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined, tab: (["Active", "Assigned", "Completed"].includes(s.tab as string) ? s.tab : undefined) as Tab | undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined, tab: (["Active", "Assigned", "Completed"].includes(s.tab as string) ? s.tab : undefined) as Tab | undefined }) as { id?: string; tab?: Tab },
   head: () => meta("Rescue Operations", "Triage SOS incidents, assign rescue teams and track every rescue from report to medical handover."),
   component: Rescue,
 });

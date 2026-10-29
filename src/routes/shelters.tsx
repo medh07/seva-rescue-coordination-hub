@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import school from "@/assets/shelter-school.jpg";
 
 export const Route = createFileRoute("/shelters")({
-  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ id: typeof s.id === "string" ? s.id : undefined }) as { id?: string },
   head: () => meta("Shelters & Medical Aid", "Find open relief shelters, capacity, facilities and nearby medical care across flood-affected districts."),
   component: Shelters,
 });

@@ -8,7 +8,7 @@ import { meta } from "@/lib/meta";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/resources")({
-  validateSearch: (s: Record<string, unknown>) => ({ dest: typeof s.dest === "string" ? s.dest : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ dest: typeof s.dest === "string" ? s.dest : undefined }) as { dest?: string },
   head: () => meta("Resources & Dispatch", "Track relief stock levels and dispatch food, water, medical kits and rescue equipment to shelters and teams."),
   component: Resources,
 });
