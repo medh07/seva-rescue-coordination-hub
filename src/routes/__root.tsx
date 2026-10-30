@@ -14,6 +14,7 @@ import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { StoreProvider } from "@/lib/store";
+import { ResQConnection } from "@/components/resq/Connection";
 import { AppShell } from "@/components/AppShell";
 
 function NotFoundComponent() {
@@ -54,7 +55,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SEVA — Disaster Response Intelligence" },
+      { title: "ResQ-Flow — Command Centre" },
       { name: "description", content: "SEVA coordinates flood rescue, shelters, NGOs and verified alerts in one command platform." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -89,12 +90,14 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
+      <ResQConnection>
       <StoreProvider>
         <AppShell>
           <Outlet />
         </AppShell>
         <Toaster theme="dark" position="bottom-right" richColors />
       </StoreProvider>
+      </ResQConnection>
     </QueryClientProvider>
   );
 }
